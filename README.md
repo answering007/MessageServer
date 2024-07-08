@@ -18,6 +18,7 @@ This plugin allows to run Minecraft [Spigot](https://www.spigotmc.org/) commands
 
 1. Download latest release
 2. Copy **messageserver-X.jar** file to **SpigotServer\plugins** folder
+3. Start spigot server or send `reload` command from server console
 
 ## Plugin configuration
 
