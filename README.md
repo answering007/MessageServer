@@ -6,7 +6,7 @@
 - [Spigot HTTP message server plugin](#spigot-http-message-server-plugin)
   - [Overview](#overview)
   - [Installation](#installation)
-  - [Plugtin configuration](#plugtin-configuration)
+  - [Plugin configuration](#plugin-configuration)
   - [Usage](#usage)
   - [License](#license)
 
@@ -19,7 +19,7 @@ This plugin allows to run Minecraft [Spigot](https://www.spigotmc.org/) commands
 1. Download latest release
 2. Copy **messageserver-X.jar** file to **SpigotServer\plugins** folder
 
-## Plugtin configuration
+## Plugin configuration
 
 ```yaml
 plugin:
