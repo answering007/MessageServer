@@ -1,4 +1,0 @@
-name: messageserver
-main: com.pike.messageserver.MessageServerPlugin
-version: 0.1
-api-version: 1.17
