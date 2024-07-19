@@ -40,7 +40,11 @@ public class SetBlockHandler extends AbstractHandler<List<SetBlockData>> {
                 Utils.sendResponseData(exchange, StatusCode.UNPROCESSABLE_CONTENT, "One or more SetBlockData have a null value");
                 plugin.debugPrint("One or more SetBlockData have a null value");
                 return null;
-            } else if (message.worldName == null) {
+            } else if (message.locationData == null) {
+                Utils.sendResponseData(exchange, StatusCode.UNPROCESSABLE_CONTENT, "The locationData of one or more SetBlockData has a null value");
+                plugin.debugPrint("The locationData of one or more SetBlockData has a null value");
+                return null;
+            } else if (message.locationData.worldName == null) {
                 Utils.sendResponseData(exchange, StatusCode.UNPROCESSABLE_CONTENT, "The worldName of one or more SetBlockData has a null value");
                 plugin.debugPrint("The worldName of one or more SetBlockData has a null value");
                 return null;

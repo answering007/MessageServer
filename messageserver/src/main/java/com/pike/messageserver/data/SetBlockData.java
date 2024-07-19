@@ -14,22 +14,9 @@ import com.pike.messageserver.results.SetBlockResult;
 
 public class SetBlockData {
     /**
-     * The name of the world the block is in.
+     * The location data of the block.
      */
-    public String worldName;
-    /**
-     * The x coordinate of the block.
-     */
-    public int x;
-    /**
-     * The y coordinate of the block.
-     */
-    public int y;
-
-    /**
-     * The z coordinate of the block.
-     */
-    public int z;
+    public LocationData locationData;
 
     /**
      * The block data of the block.
@@ -43,38 +30,33 @@ public class SetBlockData {
     @Override
     public String toString() {
         return "SetBlockData{" +
-                "worldName='" + worldName + '\'' +
-                ", x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                ", blockData='" + blockData + '\'' +
-                '}';
+                "locationData=" + locationData +
+                ", blockData='" + blockData + '}';                
     }
 
     /**
      * Converts a SetBlockData object into a SetBlockResult object.
      *
-     * @param  setBlock  the SetBlockData object to convert
      * @return            the resulting SetBlockResult object
      */
-    public static SetBlockResult toSetBlockResult(SetBlockData setBlock) {
+    public SetBlockResult toSetBlockResult() {
         
         SetBlockResult result = new SetBlockResult();
 
         // Fill main data
-        World world = Bukkit.getWorld(setBlock.worldName);
-        Block block = world.getBlockAt(setBlock.x, setBlock.y, setBlock.z);
-        BlockData blockData = Bukkit.createBlockData(setBlock.blockData);
+        World world = Bukkit.getWorld(locationData.worldName);
+        Block block = world.getBlockAt(locationData.toLocation());
+        BlockData blockData = Bukkit.createBlockData(this.blockData);
         block.setBlockData(blockData);
 
         // Fill ItemStack
-        if (setBlock.items != null && !setBlock.items.isEmpty()) {
+        if (items != null && !items.isEmpty()) {
             BlockState blockState = block.getState();
             if (blockState instanceof org.bukkit.inventory.InventoryHolder) {
                 org.bukkit.inventory.InventoryHolder inventoryHolder = (org.bukkit.inventory.InventoryHolder) blockState;
 
                 // Create ItemStack
-                for (ItemStackData itemStackData : setBlock.items) {
+                for (ItemStackData itemStackData : items) {
                     ItemStack itemStack = itemStackData.toItemStack();
                     inventoryHolder.getInventory().setItem(itemStackData.Index, itemStack);
                 }

@@ -5,23 +5,23 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import com.pike.messageserver.MessageServerPlugin;
-import com.pike.messageserver.data.GetBlockData;
+import com.pike.messageserver.data.LocationData;
 import com.pike.messageserver.results.GetBlockResult;
 
 public class GetBlockRunner implements AbstractRunner{
 
     private MessageServerPlugin plugin;
     private CountDownLatch countDownLatch;
-    private List<GetBlockData> getBlockData;
+    private List<LocationData> locationData;
     private List<GetBlockResult> results = new ArrayList<GetBlockResult>();
 
     public GetBlockResult[] getResults() {
         return results.toArray(new GetBlockResult[results.size()]);
     }
 
-    public GetBlockRunner(MessageServerPlugin plugin, List<GetBlockData> getBlockData, CountDownLatch countDownLatch) {
+    public GetBlockRunner(MessageServerPlugin plugin, List<LocationData> locationData, CountDownLatch countDownLatch) {
         this.plugin = plugin;
-        this.getBlockData = getBlockData;
+        this.locationData = locationData;
         this.countDownLatch = countDownLatch;
     }
     
@@ -29,15 +29,15 @@ public class GetBlockRunner implements AbstractRunner{
     public void run() {
         // Print get block request to server console if needed
         if (plugin.printDebug) {
-            for (GetBlockData getBlock : getBlockData) {
-                plugin.debugPrint(getBlock.toString());
+            for (LocationData location : locationData) {
+                plugin.debugPrint(location.toString());
             }
         }
         
         // Fill data
-        for (GetBlockData getBlock : getBlockData) {
+        for (LocationData location : locationData) {
             try {
-                results.add(GetBlockData.toGetBlockResult(getBlock));
+                results.add(location.toGetBlockResult());
             } catch (Exception e) {
                 GetBlockResult result = new GetBlockResult();
                 result.success = false;

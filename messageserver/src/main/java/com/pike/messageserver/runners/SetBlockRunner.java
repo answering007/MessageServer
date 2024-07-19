@@ -37,7 +37,7 @@ public class SetBlockRunner implements AbstractRunner{
         // Fill data
         for (SetBlockData setBlock : setBlockData) {
             try {
-                results.add(SetBlockData.toSetBlockResult(setBlock));
+                results.add(setBlock.toSetBlockResult());
             } catch (Exception e) {
                 SetBlockResult result = new SetBlockResult();
                 result.success = false;

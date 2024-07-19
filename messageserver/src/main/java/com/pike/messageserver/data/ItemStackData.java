@@ -10,10 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemStackData {
-    /**
-     * Name of the material.
-     */
-    public String materialName;
 
     /**
      * Key of the material.
@@ -43,7 +39,6 @@ public class ItemStackData {
     @Override
     public String toString() {
         return "ItemStackData{" +
-                "materialName='" + materialName + '\'' +
                 ", materialKey='" + materialKey + '\'' +
                 ", materialNameSpaceKey='" + materialNameSpaceKey + '\'' +
                 ", Index=" + Index +
@@ -63,7 +58,6 @@ public class ItemStackData {
         ItemStackData itemStackData = new ItemStackData();
         Material itemStackMaterial = itemStack.getType();
 
-        itemStackData.materialName = itemStackMaterial.name();
         itemStackData.materialKey = itemStackMaterial.getKey().getKey();
         itemStackData.materialNameSpaceKey = itemStackMaterial.getKey().getNamespace();
         itemStackData.Index = index;

@@ -10,23 +10,23 @@ import com.google.gson.reflect.TypeToken;
 import com.pike.messageserver.MessageServerPlugin;
 import com.pike.messageserver.StatusCode;
 import com.pike.messageserver.Utils;
-import com.pike.messageserver.data.GetBlockData;
+import com.pike.messageserver.data.LocationData;
 import com.pike.messageserver.runners.GetBlockRunner;
 import com.pike.messageserver.runners.AbstractRunner;
 import com.sun.net.httpserver.HttpExchange;
 
-public class GetBlockHandler extends AbstractHandler<List<GetBlockData>> {
+public class GetBlockHandler extends AbstractHandler<List<LocationData>> {
     
-    private Type mapType = new TypeToken<ArrayList<GetBlockData>>() {}.getType();
+    private Type mapType = new TypeToken<ArrayList<LocationData>>() {}.getType();
 
     public GetBlockHandler(MessageServerPlugin plugin) {
         super(plugin);
     }
 
     @Override
-    protected List<GetBlockData> validateDecodedBody(HttpExchange exchange, String decodedBody) throws IOException {
+    protected List<LocationData> validateDecodedBody(HttpExchange exchange, String decodedBody) throws IOException {
         // Parse the request parameters
-        List<GetBlockData> messages = Utils.deserializeFromJsonString(decodedBody, mapType);
+        List<LocationData> messages = Utils.deserializeFromJsonString(decodedBody, mapType);
         if (messages == null) {
             Utils.sendResponseData(exchange, StatusCode.UNPROCESSABLE_CONTENT, "Unable to parse JSON body data");
             plugin.debugPrint("Unable to parse JSON body data");
@@ -35,7 +35,7 @@ public class GetBlockHandler extends AbstractHandler<List<GetBlockData>> {
         plugin.debugPrint("List of GetBlockData contains: " + messages.size() + " items");
 
         // Validate commands
-        for (GetBlockData message : messages) {
+        for (LocationData message : messages) {
             if (message == null) {
                 Utils.sendResponseData(exchange, StatusCode.UNPROCESSABLE_CONTENT, "One or more GetBlockData have a null value");
                 plugin.debugPrint("One or more GetBlockData have a null value");
@@ -51,7 +51,7 @@ public class GetBlockHandler extends AbstractHandler<List<GetBlockData>> {
     }
 
     @Override
-    protected AbstractRunner createRunner(MessageServerPlugin messagePlugin, List<GetBlockData> messagesToRun,
+    protected AbstractRunner createRunner(MessageServerPlugin messagePlugin, List<LocationData> messagesToRun,
             CountDownLatch latch) {
         return new GetBlockRunner(messagePlugin, messagesToRun, latch);
     }
